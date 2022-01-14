@@ -21,8 +21,51 @@ Show and compare the computed probabilities of success for the two strategies, h
 http://rosettacode.org/wiki/100_prisoners
 */
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
+
+struct Drawer
+{
+    int prisonerId = -1;
+};
+
 
 int main()
 {
-    /* code */
+    // creating array of prisoners with their numbers 
+    unsigned const int numPrisoners = 100;
+    unsigned int prisoners[numPrisoners];
+    for (unsigned int i = 0; i < numPrisoners; i++)
+    {
+        prisoners[i] = i;
+    }
+
+    Drawer drawers[numPrisoners];
+    srand(time(NULL));
+    for (size_t i = 0; i < numPrisoners; i++)
+    {
+        while (drawers[i].prisonerId == -1)
+        {
+            unsigned int temp = rand() % numPrisoners;
+            bool isAlreadyInDrawer = false;
+            for (int j = 0; j < i; j++)
+            {
+                if (temp == drawers[j].prisonerId)
+                {
+                    isAlreadyInDrawer == true;
+                }
+            }
+            if (!isAlreadyInDrawer)
+            {
+                drawers[i].prisonerId = temp;
+            }
+        }
+    }
+    
+    for (size_t i = 0; i < numPrisoners; i++)
+    {
+        std::cout << drawers[i].prisonerId << ' ';
+    }
+    
+    
 }
